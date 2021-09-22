@@ -12,12 +12,57 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Strivazon</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Back Office</a>
+            </li>
+
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+
     <h1 class="text-center">Back Office</h1>
     
+
+    <!-- "name": "app test 1",  //REQUIRED
+    "description": "somthing longer", //REQUIRED
+    "brand": "nokia", //REQUIRED
+    "imageUrl": "https://drop.ndtv.com/TECH/product_database/images/2152017124957PM_635_nokia_3310.jpeg?downsize=*:420&output-quality=80", //REQUIRED
+    "price": 100, //REQUIRED -->
  
         <div class="row justify-content-center">
             <form onsubmit="">
-                
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control" placeholder="Enter product name">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <input  id="description" type="text" class="form-control" placeholder="Enter product description">
+                  </div>
+                  <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <input id="brand" type="text" class="form-control" placeholder="Enter product brand" >
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Price</label>
+                    <input id="price" type="password" class="form-control" placeholder="Enter price">
+                  </div>
+                  <button type="submit" class="btn btn-warning">Submit</button>
             </form>
         </div>
 
@@ -27,9 +72,16 @@
     <script>
 
         const handleSubmit = async (event) => {
-            const url = 
-
+        
+            const url = 'https://striveschool-api.herokuapp.com/api/product/'
             event.preventDefault()
+
+
+            try {
+
+            } catch (err) {
+                console.log(err)
+            }
         }
 
 
