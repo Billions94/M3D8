@@ -7,6 +7,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+      body {
+      
+      }
+    </style>
 
     <title>Home</title>
   </head>
@@ -37,7 +42,7 @@
     <h1>Create Events</h1>
     
     <div class="">
-        <div class="row">
+        <div class="row justify-content- center ml-3">
 
           </div>
 
@@ -49,50 +54,60 @@
 <script>
 
       
-      const cardBody = `
-            <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+
+
+  const getProduct = (product) => {
+
+        const container = document.querySelector('.row')
+        const containerNode = document.createElement('div')
+          containerNode.className = 'col-3'
+          containerNode.innerHTML = `
+            <div class="card">
+            <img src=${product.imageUrl}class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">${product.name}</h5>
+              <p class="card-text">${product.brand}</p>
+              <p class="card-text">${product.description}</p>
+              <p class="card-text">${product.price}</p>
+
+              
             </div>`
 
+            container.appendChild(containerNode)
+  }
+      
 
-      const getProduct = (product) => {
-        const container = document.querySelector('.row')
 
-        product.forEach(item => {
-          container.innerHTML += cardBody
-        })
+  const fetchData = () => {
+    fetch("https://striveschool-api.herokuapp.com/api/product/", {
+      headers: {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiMjJhYTRiYjUzZDAwMTViMTllZGUiLCJpYXQiOjE2MzIzMTQwMjcsImV4cCI6MTYzMzUyMzYyN30.77Yuy9DLj_tVyAeila_3MBsQRZdNMxEbAkVipEDT8CI"
       }
+      })
+      .then(response => response.json())
+      .then(data => {
 
+        console.log(data)
+        data.forEach(product => {
+        
+          getProduct(product)
+          
+        })
 
-        const fetchData = async (url) => {
-          try { const response = await fetch((url), {
-              headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiMjJhYTRiYjUzZDAwMTViMTllZGUiLCJpYXQiOjE2MzIzMTQwMjcsImV4cCI6MTYzMzUyMzYyN30.77Yuy9DLj_tVyAeila_3MBsQRZdNMxEbAkVipEDT8CI"
-              }
-              })
-         
-          const data = await response.json()
-          console.log(data)
-
-
-          } catch (err) {
-            console.log(err);
-          }
-        }
+      })
 
 
 
 
-        window.onload = async () => {
-          const url = 'https://striveschool-api.herokuapp.com/api/product/'
-          fetchData(url)
+  }
 
 
-        }
+
+window.onload = () => {
+          fetchData()
+
+
+}
 </script>
 
   </body>
