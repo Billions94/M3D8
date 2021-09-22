@@ -24,7 +24,7 @@
   </head>
   <body>
         <nav class="navbar navbar-expand-lg navbar-dark cool sticky-top">
-          <a class="navbar-brand" href="#">Strivazon</a>
+          <a class="navbar-brand" href="#">Strivazon <img src="./images/navicon.png" style="width:15px" alt=""> </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,6 +38,16 @@
                 <a class="nav-link" href="backoffice.html">Back Office</a>
               </li>
             </ul>
+            <div class="dropleft btn-group">
+              <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                CART <img src="./images/icon.png" style="width:20px">
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Current items in cart (0)</a>
+                <div class="dropdown-divider"></div>
+                
+              </div>
+            </div>
           </div>
         </nav>
 
@@ -71,15 +81,46 @@
               <p class="card-text">Product brand: ${product.brand}</p>
               <p class="card-text">Product info: ${product.description}</p>
               <p class="card-text">Price: ${product.price} €</p>
-              <button type="button" class="btn btn-warning"><img src="./images/icon.png" style="width:20px"></button>
+              <button type="button" class="btn btn-warning" onclick="addToCart(event)"><img src="./images/icon.png" style="width:20px"></button>
 
               
             </div>`
 
             container.appendChild(containerNode)
   }
-      
+  
+  const cartArray = [] 
 
+    const addToCart = (event) => {
+    // console.log(event.target)
+    let productEvent = event.target.closest('.col-3')
+    console.log(productEvent)
+    // bookEvent.remove()
+    cartArray.push(productEvent)
+// We are pushing our products into the cartArrays[]    
+    let cart = document.getElementById('cart')
+
+    let product = document.createElement('div')
+        product.className = '.col-3'
+        product.innerHTML = `
+            <div class="card">
+            <img src=${product.imageUrl}class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">${product.name}</h5>
+              <p class="card-text">Product brand: ${product.brand}</p>
+              <p class="card-text">Product info: ${product.description}</p>
+              <p class="card-text">Price: ${product.price} €</p>
+              <button type="button" class="btn btn-warning"><img src="./images/icon.png" style="width:20px"></button>
+
+              
+            </div>`
+        cart.appendChild(product)
+ // We are filling and appending the products to our cartArrays
+        // bookCount() // Calls the bookCount function
+        // console.log(cartArray)     
+}
+
+  
 
   const fetchData = () => {
     fetch("https://striveschool-api.herokuapp.com/api/product/", {
