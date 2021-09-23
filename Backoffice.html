@@ -22,6 +22,10 @@
         #form {
             width: 35%;
         }
+
+        #form-container {
+            /* height: 730px; */
+        }
     </style>
 
     <title>Back Office</title>
@@ -56,12 +60,12 @@
         </div>
       </nav>
 
-    <h1 class="text-center">Back Office</h1>
+    <h1 class="text-center"> <img src="./images/backoffice.png" style="width:30px" alt=""> Back Office</h1>
     
 
 
  
-        <div class="row justify-content-center mb-3">
+        <div id="form-container" class="row justify-content-center mb-3">
             <form id="form" onsubmit="handleSubmit(event)">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -88,7 +92,7 @@
                     <label for="id">Delete Product</label>
                     <input id="id" type="text" class="form-control" placeholder="Enter ID of product you want to delete or edit">
                   </div>
-                  <button type="button" class="btn btn-info" onclick="deleteProduct(event)">Delete</button>
+                  <button type="button" class="btn btn-danger" onclick="deleteProduct(event)">Delete</button>
                   <button type="button" class="btn btn-warning" onclick="editProduct(event)">Update</button>
             </form>
         </div>

@@ -307,3 +307,11 @@ nav {
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(177,18,129,1) 100%, rgba(0,212,255,1) 100%);
 }
 
+#email {
+    border-radius: 20px;
+}
+
+#password {
+    border-radius: 20px;
+}
+
