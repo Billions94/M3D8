@@ -18,6 +18,20 @@
             background: rgb(2,0,36);
             background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(177,18,129,1) 100%, rgba(0,212,255,1) 100%);
         }
+        #cart {
+            overflow-y: scroll;
+            max-height: 230px;
+            /* display: -webkit-box; */
+            /* -webkit-line-clamp: 1; */
+            /* -webkit-box-orient: vertical; */
+        }
+
+        .cart-btn {
+            width: 4.3rem;
+            height: 2.15rem;
+            margin-top: 2px;
+            padding: 3px;
+        }
     </style>
 
     <title>Home</title>
@@ -42,16 +56,17 @@
               <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img src="./images/icon.png" style="width:20px">
               </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Current items in cart (0)</a>
+              <div id="cart" class="dropdown-menu">
+                 <!---                 ADD TO PRODUCTS TO CART                    ----->    
+                <a  id="count" class="dropdown-item" href="#">Current items in cart (0)</a>
                 <div class="dropdown-divider"></div>
-                
+      <!---                  SEPERATED LINK FOR ACTUAL PRODUCT                     ----->          
               </div>
             </div>
           </div>
         </nav>
 
-    <h1 class="text-light text-center"> <img src="./images/glow.jpg"  width="45px" alt=""> Gadgets</h1>
+    <h1 class="text-light text-center mb-4"> <img src="./images/gadicon.png"  width="40px" alt=""> Products</h1>
     
     <div class="">
         <div class="row justify-content- center ml-2 mr-2 mb-2">
@@ -80,8 +95,8 @@
               <h5 class="card-title">${product.name}</h5>
               <p class="card-text">Product brand: ${product.brand}</p>
               <p class="card-text">Product info: ${product.description}</p>
-              <p class="card-text">Price: ${product.price} €</p>
-              <button type="button" class="btn btn-warning" onclick="addToCart(event)">Buy</button>
+              <p class="card-text">Price: €${product.price} </p>
+              <button type="button" class="btn btn-warning" onclick="addToCart(event,'${product.imageUrl}', '${product.brand}' ,'${product.name}', '€${product.price}')">Buy</button>
 
               
             </div>`
@@ -91,33 +106,52 @@
   
   const cartArray = [] 
 
-    const addToCart = (event) => {
+    const addToCart = (event, imageUrl, brand, name, price) => {
     // console.log(event.target)
     let productEvent = event.target.closest('.col-3')
-    console.log(productEvent)
+    // console.log(productEvent)
     // bookEvent.remove()
     cartArray.push(productEvent)
 // We are pushing our products into the cartArrays[]    
     let cart = document.getElementById('cart')
 
     let product = document.createElement('div')
-        product.className = '.col-3'
-        product.innerHTML = `
-            <div class="card">
-            <img src=${product.imageUrl}class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${product.name}</h5>
-              <p class="card-text">Product brand: ${product.brand}</p>
-              <p class="card-text">Product info: ${product.description}</p>
-              <p class="card-text">Price: ${product.price} €</p>
-              <button type="button" class="btn btn-warning"><img src="./images/icon.png" style="width:20px"></button>
-
-              
-            </div>`
+        product.className = 'dropdown-item'
+        product.innerHTML = ` <div class="d-flex">
+        <div>
+        <a href="#" id="remove" class="dropdown-item"><span><img src="${imageUrl}" alt="" width="25"></span>
+        <span>${brand}</span> <span>${name}</span><span class="ml-2" >${price}</span></a>
+        </div>
+        <div>
+        <a href="#" class="btn btn-danger mt-1 cart-btn" onclick="removeFromCart(event)">Remove</a></span></a>
+        </div>
+        </div>
+        `
         cart.appendChild(product)
+        console.log(cart)
+        console.log(cartArray)
  // We are filling and appending the products to our cartArrays
-        // bookCount() // Calls the bookCount function
-        // console.log(cartArray)     
+        productCount() // Calls the productCount function
+       
+  }
+
+  const removeFromCart = (event) => {
+    
+     let removeFromCart = event.target.closest('.dropdown-item')
+        removeFromCart.remove()
+ 
+        productCount()
+
+  }
+
+  const productCount = () => {
+
+    if(cartArray.length > 0) {
+        let count = document.getElementById('count')
+        count.innerHTML = `Current items in your cart  (${cartArray.length})`
+    } else if (cartArray.length < 1){
+        count.innerHTML = `Current items in your cart  (0)`
+    }
 }
 
   
